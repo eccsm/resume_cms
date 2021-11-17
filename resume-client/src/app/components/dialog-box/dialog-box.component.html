@@ -1,0 +1,22 @@
+<h1 mat-dialog-title><strong>{{action}} Experience</strong></h1>
+<div mat-dialog-content>
+    <div class="row example-full-width" *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-form-field>
+        <input placeholder="Company" matInput [(ngModel)]="local_data.company">
+    </mat-form-field>
+        <mat-form-field>
+        <input matInput [(ngModel)]="local_data.years" placeholder="Years" class="form-control" autocomplete="off">
+    </mat-form-field>
+        <mat-form-field>
+        <mat-label>Details</mat-label>
+        <textarea matInput [(ngModel)]="local_data.details" #message maxlength="256" rows="3" cols="40"></textarea>
+        </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+        Sure to delete <b>{{local_data.name}}</b>?
+    </ng-template>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>

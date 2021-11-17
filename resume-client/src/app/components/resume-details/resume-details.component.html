@@ -1,0 +1,50 @@
+<div>
+  <div *ngIf="currentResume.about" class="edit-form">
+    <h4>Resume</h4>
+    <form>
+      <div class="form-group">
+        <label for="about">About</label>
+        <input type="text" class="form-control" id="about" required name="about" />
+      </div>
+
+      <div class="form-group">
+        <label for="experience">Experience</label>
+        <input class="form-control" id="experience" required name="experience" />
+      </div>
+
+      <div class="form-group">
+        <label for="education">Education</label>
+        <input class="form-control" id="education" required name="education" />
+      </div>
+
+      <div class="form-group">
+        <label for="skills">Skills</label>
+        <input class="form-control" id="skills" required name="skills" />
+      </div>
+
+      <div class="form-group">
+        <label for="interests">Interests</label>
+        <input class="form-control" id="interests" required name="interests" />
+      </div>
+
+      <div class="form-group">
+        <label for="awards">Awards</label>
+        <input class="form-control" id="awards" required name="awards" />
+      </div>
+    </form>
+
+    <button class="badge badge-danger mr-2" (click)="deleteResume()">
+      Delete
+    </button>
+
+    <button type="submit" class="badge badge-success mb-2" (click)="updateResume()">
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentResume.about">
+    <br />
+    <p>Cannot access this Resume...</p>
+  </div>
+</div>
