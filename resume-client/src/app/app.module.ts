@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ResumeViewComponent } from './components/resume-view/resume-view.component';
-import { ResumeDetailsComponent } from './components/resume-details/resume-details.component';
 import { CreateResumeComponent } from './components/create-resume/create-resume.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
@@ -24,7 +23,6 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
   declarations: [
     AppComponent,
     ResumeViewComponent,
-    ResumeDetailsComponent,
     CreateResumeComponent,
     DialogBoxComponent
   ],

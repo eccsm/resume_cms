@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ResumeService } from 'src/app/services/resume.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
@@ -6,13 +6,44 @@ import { MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
-export interface UsersData {
+export interface experience {
   company: string;
+  position: string;
   years: string;
   details: string;
   id: number;
 }
-const ELEMENT_DATA: UsersData[] = [];
+
+export interface about {
+  name: string;
+  surname: string;
+  mail: string;
+  phone: string;
+  address: string;
+  summary: string;
+}
+
+export interface education {
+  highSchool: string;
+  highSchoolState: string;
+  highSchoolCountry: string;
+  highSchoolYears: string;
+  university: string;
+  universityCountry: string;
+  universityYears: string;
+  master: string;
+  masterCountry: string;
+  masterYears: string;
+  doctorate: string;
+  doctorateCountry: string;
+  doctorateYears: string;
+  masterProgram: string;
+  doctorateProgram: string;
+  universityDepartment: string;
+}
+const EXPERIENCE_DATA: experience[] = [];
+const ABOUT_DATA: about[] = [];
+const EDUCATION_DATA: education[] = [];
 
 @Component({
   selector: 'app-create-resume',
@@ -20,8 +51,10 @@ const ELEMENT_DATA: UsersData[] = [];
   styleUrls: ['./create-resume.component.css']
 })
 export class CreateResumeComponent implements OnInit {
-  displayedColumns: string[] = ['Company','Years','Details','Actions'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['company','position', 'years', 'details', 'actions'];
+  experienceDataSource = EXPERIENCE_DATA;
+  aboutDataSource = ABOUT_DATA;
+  educationDataSource = EDUCATION_DATA;
   resumeForm!: FormGroup;
   university: any = [];
   masterUniversities: any = [];
@@ -35,72 +68,83 @@ export class CreateResumeComponent implements OnInit {
   file!: File;
   imageUrl: string | ArrayBuffer | null = "";
   fileName: string = "No file selected";
-  addCnd: Boolean=false;
+  addCnd: Boolean = false;
 
-  primarySchool!: string;
+  masterProgram!: string;
+  doctorateProgram!: string;
+  universityDepartment!: string;
   highSchool!: string;
-  primarySchoolState!: string;
   highSchoolState!: string;
+  highSchoolYears!: string;
   selectedUniversity!: string;
   primarySchoolCountry!: string;
   highSchoolCountry!: string;
   universityCountry!: string;
+  universityYears!: string;
   masterCountry!: string;
   masterUniversity!: string;
+  masterYears!: string;
   doctorateCountry!: string;
   doctorateUniversity!: string;
+  doctorateYears!: string;
   selectedEducation!: string;
+  name!: string;
+  surname!: string;
+  mail!: string;
+  phone!: string;
+  address!: string;
+  summary!: string;
 
-  companyName!:string;
+  @ViewChild(MatTable, { static: true }) table!: MatTable<any>;
 
-  @ViewChild(MatTable,{static:true}) table!: MatTable<any>;
-
-  constructor(public dialog: MatDialog,private fb: FormBuilder, private resumeService: ResumeService, private http: HttpClient) {
+  constructor(public dialog: MatDialog, private fb: FormBuilder, private resumeService: ResumeService, private http: HttpClient) {
 
     this.fillCountries();
   }
 
-  openDialog(action:any,obj:any) {
+  openDialog(action: any, obj: any) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '750px',
-      data:obj
+      data: obj
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.event == 'Add'){
+      if (result.event == 'Add') {
         this.addRowData(result.data);
-      }else if(result.event == 'Update'){
+      } else if (result.event == 'Update') {
         this.updateRowData(result.data);
-      }else if(result.event == 'Delete'){
+      } else if (result.event == 'Delete') {
         this.deleteRowData(result.data);
       }
     });
   }
 
-  addRowData(row_obj:any){
+  addRowData(row_obj: any) {
     var d = new Date();
-    this.dataSource.push({
-      id:d.getTime(),
-      company:row_obj.company,
-      years:row_obj.years,
-      details:row_obj.details
+    this.experienceDataSource.push({
+      id: d.getTime(),
+      company: row_obj.company,
+      position: row_obj.position,
+      years: row_obj.years,
+      details: row_obj.details
     });
     this.table.renderRows();
-    
+
   }
-  updateRowData(row_obj:any){
-    this.dataSource = this.dataSource.filter((value,key)=>{
-      if(value.id == row_obj.id){
-        value.company = row_obj.company,
-        value.years = row_obj.years,
-        value.details = row_obj.details
+  updateRowData(row_obj: any) {
+    this.experienceDataSource = this.experienceDataSource.filter((value, key) => {
+      if (value.id == row_obj.id) {
+          value.company = row_obj.company,
+          value.position = row_obj.position,
+          value.years = row_obj.years,
+          value.details = row_obj.details
       }
       return true;
     });
   }
-  deleteRowData(row_obj:any){
-    this.dataSource = this.dataSource.filter((value,key)=>{
+  deleteRowData(row_obj: any) {
+    this.experienceDataSource = this.experienceDataSource.filter((value, key) => {
       return value.id != row_obj.id;
     });
   }
@@ -110,9 +154,6 @@ export class CreateResumeComponent implements OnInit {
       this.countries = data;
     })
   }
-
-  addExperience()
-  {}
 
   fillMasterUniversity() {
     this.resumeService.getUniversities(this.masterCountry).subscribe((data) => {
@@ -164,34 +205,56 @@ export class CreateResumeComponent implements OnInit {
 
   submit() {
 
-    this.resumeForm.controls['education'].setValue('Primary School: ' + this.primarySchool + ' ,' + this.primarySchoolState + ',' + this.primarySchoolCountry +
-      ' High School: ' + this.highSchool + ' ,' + this.highSchoolState + ',' + this.highSchoolCountry +
-      ' University: ' + this.selectedUniversity + ' ,' + this.universityCountry +
-      ' Master: ' + this.masterUniversity + ' ,' + this.masterCountry +
-      ' Doctorate: ' + this.doctorateUniversity + ' ,' + this.doctorateCountry);
+    this.aboutDataSource.push({
+      name: this.name,
+      surname: this.surname,
+      mail: this.mail,
+      phone: this.phone,
+      address: this.address,
+      summary: this.summary
+    });
+
+    this.educationDataSource.push({
+      universityDepartment: this.universityDepartment,
+      masterProgram: this.masterProgram,
+      doctorateProgram: this.doctorateProgram,
+      highSchool: this.highSchool,
+      highSchoolState: this.highSchoolState,
+      highSchoolCountry: this.highSchoolCountry,
+      highSchoolYears: this.highSchoolYears,
+      university: this.selectedUniversity,
+      universityCountry: this.universityCountry,
+      universityYears: this.universityYears,
+      master: this.masterUniversity,
+      masterCountry: this.masterCountry,
+      masterYears: this.masterYears,
+      doctorate: this.doctorateUniversity,
+      doctorateCountry: this.doctorateCountry,
+      doctorateYears: this.doctorateYears
+    });
+
+    this.resumeForm.controls['about'].setValue(this.aboutDataSource);
+
+    this.resumeForm.controls['experience'].setValue(this.experienceDataSource);
+
+    this.resumeForm.controls['education'].setValue(this.educationDataSource);
 
     if (!this.resumeForm.valid) {
       return false;
     } else {
-      if (this.file) {
-        this.resumeService.upload(this.file).subscribe(res => {
-          console.log(res)
-        }
-        );
-      }
       this.resumeService.create(this.resumeForm.value).subscribe(
-        (res) => {
-          console.log(res)
-        }, (error) => {
-          console.log(error);
+        (res) => { console.log(res) }, (error) => {
+          alert(error);
         });
+      this.aboutDataSource = [];
+      this.experienceDataSource = [];
+      this.educationDataSource = [];
       return true;
     }
 
   }
 
   onChange(event: any) {
-    console.log(event)
     this.file = event.target.files[0];
 
     if (this.file) {

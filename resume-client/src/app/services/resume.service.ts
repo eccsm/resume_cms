@@ -26,12 +26,10 @@ export class ResumeService {
     )
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
-  }
+  delete(): Observable<any> {
+    console.log("enter")
+    return this.http.delete(baseUrl);
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
   }
 
   getUniversities(countryName: string): Observable<any> {
@@ -64,7 +62,6 @@ export class ResumeService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
     return throwError(errorMessage);
   }
 

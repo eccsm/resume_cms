@@ -2,14 +2,17 @@
 <div mat-dialog-content>
     <div class="row example-full-width" *ngIf="action != 'Delete'; else elseTemplate">
         <mat-form-field>
-        <input placeholder="Company" matInput [(ngModel)]="local_data.company">
-    </mat-form-field>
+            <input placeholder="Company" matInput [(ngModel)]="local_data.company">
+        </mat-form-field>
         <mat-form-field>
-        <input matInput [(ngModel)]="local_data.years" placeholder="Years" class="form-control" autocomplete="off">
-    </mat-form-field>
+            <input placeholder="Position" matInput [(ngModel)]="local_data.position">
+        </mat-form-field>
         <mat-form-field>
-        <mat-label>Details</mat-label>
-        <textarea matInput [(ngModel)]="local_data.details" #message maxlength="256" rows="3" cols="40"></textarea>
+            <input matInput [(ngModel)]="local_data.years" placeholder="Years" class="form-control" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Details</mat-label>
+            <textarea matInput [(ngModel)]="local_data.details" #message maxlength="256" rows="3" cols="40"></textarea>
         </mat-form-field>
     </div>
     <ng-template #elseTemplate>

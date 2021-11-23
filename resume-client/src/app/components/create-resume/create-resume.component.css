@@ -82,3 +82,108 @@ button:focus {
 .example-full-width {
     width: 100%;
 }
+table{
+    width: 100%;
+   }
+   
+   .mat-column-company {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 17% !important;
+     width: 17% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+     position:relative;
+     padding-top:4px;
+     text-align: left;
+     justify-content: flex-end;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+
+   .mat-column-position {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    position:relative;
+    padding-top:4px;
+    text-align: left;
+    justify-content: flex-end;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+   
+   .mat-column-years {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 18% !important;
+     width: 18% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+     position:relative;
+     padding-top:4px;
+     padding-left:4px;
+     text-align: left;
+     justify-content: flex-end;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-details {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 30% !important;
+     width: 30% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+     position:relative;
+     padding-top:4px;
+     padding-left:4px;
+     text-align: left;
+     justify-content: flex-end;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-actions {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 20% !important;
+     width: 20% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+     position:relative;
+     padding-top:4px;
+     padding-left:4px;
+     text-align: left;
+     justify-content: flex-end;
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
